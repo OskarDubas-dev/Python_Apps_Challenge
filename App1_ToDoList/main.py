@@ -1,15 +1,23 @@
-
-user_prompt = "Enter a todo (type \"end\" to quit):"
-status = ""
+user_prompt = "Enter a todo or \"show\" for list (type \"end\" to quit):"
 todos = []
 
-#change while exit to try/except
+# change while exit to try/except
 
-while status != "end":
+while True:
     status = input(user_prompt)
-    if status != "end" and status != "":
-        todos.append(status)
+    status = status.strip()
+    match status:
+        case "end":
+            break
+        case "show":
+            for i in todos:
+                print(i)
+        case default:
+            todos.append(status)
 
 
-for todo in todos:
-    print(todo)
+
+
+
+print(todos)
+
