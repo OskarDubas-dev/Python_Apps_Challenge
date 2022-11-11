@@ -19,5 +19,8 @@ while True:
 
 
 
+
+#ok jump straight to desktop gui
+
 print(todos)
 
