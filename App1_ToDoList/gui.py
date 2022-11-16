@@ -3,10 +3,18 @@ import PySimpleGUI as sg
 
 add_button = sg.Button("Add")
 quit_button = sg.Button("Quit")
+edit_button = sg.Button("Edit")
+delete_button = sg.Button("Delete")
+
+tooltip_text = "Enter ToDo"
+
+list_box = sg.Listbox(values=functions.get_todos(), key="-ITEMS-",
+                      enable_events=True, size=[60,10])
 
 layout = \
     [
-        [sg.Text("ToDo:",key="-OUTPUT-"), sg.InputText(tooltip="Enter ToDo", key="-INPUT-"), add_button],
+        [sg.Text(tooltip_text, key="-OUTPUT-"), sg.InputText(tooltip=tooltip_text, key="-INPUT-"), add_button],
+        [list_box, edit_button, delete_button],
         [quit_button]
     ]
 
@@ -24,7 +32,21 @@ while True:
             newTODO = values["-INPUT-"] + "\n"
             todos.append(newTODO)
             functions.write_todos(todos)
+            window["-ITEMS-"].update(values=todos)
+        case "-ITEMS-":
+            todo_selected = values["-ITEMS-"][0]
+            window["-INPUT-"].update(value=todo_selected)
+        case "Edit":
+            todo_to_edit = values["-ITEMS-"][0]
+            new_todo = values["-INPUT-"] + "\n"
+            todos = functions.get_todos()
+            todos[todos.index(todo_to_edit)] = new_todo
+            window["-ITEMS-"].update(values=todos)
+
+
+
     print(event, values)
-    window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying PySimpleGUI")
+    window.refresh()
+# window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying PySimpleGUI")
 
 window.close()
