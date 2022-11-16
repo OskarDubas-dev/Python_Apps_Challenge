@@ -1,41 +1,14 @@
-user_prompt = "Enter a todo or \"show\" for list (type \"end\" to quit):"
-todos = []
+FILEPATH = "todos.txt"
 
-# change while exit to try/except
-
-
-FILEPATH = "todos_item.txt"
 
 def get_todos(filepath=FILEPATH):
+    """ Read a text file and return list of items """
     with open(filepath, 'r') as file_local:
         todos_local = file_local.readlines()
     return todos_local
 
 
-
-
-
-
-
-
-while True:
-    status = input(user_prompt)
-    status = status.strip()
-    match status:
-        case "end":
-            break
-        case "show":
-            for i in todos:
-                print(i)
-        case default:
-            todos.append(status)
-
-
-
-
-
-
-#ok jump straight to desktop gui
-
-print(todos)
-
+def write_todos(arg, filepath=FILEPATH):
+    """ Write to do item in to the text file """
+    with open(filepath, 'w') as file:
+        file.writelines(arg)
