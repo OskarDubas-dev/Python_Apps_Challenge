@@ -16,6 +16,7 @@ while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
+    print(event, values)
     window['-OUTPUT-'].update('Hello ' + values['-INPUT-'] + "! Thanks for trying PySimpleGUI")
 
 window.close()
