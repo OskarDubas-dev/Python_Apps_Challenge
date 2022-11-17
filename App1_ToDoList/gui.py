@@ -1,15 +1,27 @@
 import functions
 import PySimpleGUI as sg
 
+
+def popup_confirm(task):
+    popup_layout = [
+        [sg.Text("Do you want to mark task "),
+         sg.Text(text_color="Red", text=task),
+         sg.Text(" as completed (it will be removed from the list)?")],
+        [sg.Push(), sg.Button('Yes'), sg.Button('No')]
+    ]
+    temp_window = sg.Window('POPUP', popup_layout, modal=True).read(close=True)
+    return temp_window
+
+
 add_button = sg.Button("Add")
 quit_button = sg.Button("Quit")
 edit_button = sg.Button("Edit")
-delete_button = sg.Button("Delete")
+delete_button = sg.Button("Complete")
 
 tooltip_text = "Enter ToDo"
 
 list_box = sg.Listbox(values=functions.get_todos(), key="-ITEMS-",
-                      enable_events=True, size=[60,10])
+                      enable_events=True, size=[60, 20])
 
 layout = \
     [
@@ -42,8 +54,16 @@ while True:
             todos = functions.get_todos()
             todos[todos.index(todo_to_edit)] = new_todo
             window["-ITEMS-"].update(values=todos)
-
-
+        case "Complete":
+            todo_to_complete = values["-ITEMS-"][0]
+            todos = functions.get_todos()
+            confirm = popup_confirm(task=todo_to_complete)[0]
+            print(confirm)
+            if confirm == "Yes":
+                todos.remove(todo_to_complete)
+                functions.write_todos(todos)
+                window["-ITEMS-"].update(values=todos)
+                window["-INPUT-"].update(value="")
 
     print(event, values)
     window.refresh()

@@ -12,3 +12,5 @@ def write_todos(arg, filepath=FILEPATH):
     """ Write to do item in to the text file """
     with open(filepath, 'w') as file:
         file.writelines(arg)
+
+
