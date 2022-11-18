@@ -50,11 +50,15 @@ while True:
             todo_selected = values["-ITEMS-"][0]
             window["-INPUT-"].update(value=todo_selected)
         case "Edit":
-            todo_to_edit = values["-ITEMS-"][0]
-            new_todo = values["-INPUT-"] + "\n"
-            todos = functions.get_todos()
-            todos[todos.index(todo_to_edit)] = new_todo
-            window["-ITEMS-"].update(values=todos)
+            try:
+                todo_to_edit = values["-ITEMS-"][0]
+                new_todo = values["-INPUT-"] + "\n"
+                todos = functions.get_todos()
+                todos[todos.index(todo_to_edit)] = new_todo
+                window["-ITEMS-"].update(values=todos)
+            except:
+                sg.popup("Please select item to edit first.")
+
         case "Complete":
             todo_to_complete = values["-ITEMS-"][0]
             todos = functions.get_todos()
