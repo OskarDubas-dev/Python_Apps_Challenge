@@ -56,19 +56,23 @@ while True:
                 todos = functions.get_todos()
                 todos[todos.index(todo_to_edit)] = new_todo
                 window["-ITEMS-"].update(values=todos)
-            except:
-                sg.popup("Please select item to edit first.")
+            except IndexError:
+                sg.popup("Please select item to edit.")
 
         case "Complete":
-            todo_to_complete = values["-ITEMS-"][0]
-            todos = functions.get_todos()
-            confirm = popup_confirm(task=todo_to_complete)[0]
-            print(confirm)
-            if confirm == "Yes":
-                todos.remove(todo_to_complete)
-                functions.write_todos(todos)
-                window["-ITEMS-"].update(values=todos)
-                window["-INPUT-"].update(value="")
+            try:
+                todo_to_complete = values["-ITEMS-"][0]
+                todos = functions.get_todos()
+                confirm = popup_confirm(task=todo_to_complete)[0]
+                print(confirm)
+                if confirm == "Yes":
+                    todos.remove(todo_to_complete)
+                    functions.write_todos(todos)
+                    window["-ITEMS-"].update(values=todos)
+                    window["-INPUT-"].update(value="")
+            except IndexError:
+                sg.popup("Please select item to complete.")
+
 
     print(event, values)
     window.refresh()
