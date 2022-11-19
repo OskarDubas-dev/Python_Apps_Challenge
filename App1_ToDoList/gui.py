@@ -56,6 +56,7 @@ while True:
                 new_todo = values["-INPUT-"] + "\n"
                 todos = functions.get_todos()
                 todos[todos.index(todo_to_edit)] = new_todo
+                functions.write_todos(todos)
                 window["-ITEMS-"].update(values=todos)
             except IndexError:
                 sg.popup("Please select item to edit.")
