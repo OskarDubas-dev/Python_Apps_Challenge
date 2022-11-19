@@ -4,10 +4,11 @@ import PySimpleGUI as sg
 
 def popup_confirm(task):
     """ Create popup window to confirm removing item from the list"""
+    task = task.strip("\n")
     popup_layout = [
-        [sg.Text("Do you want to mark task "),
+        [sg.Text("Do you want to mark task"),
          sg.Text(text_color="Black", text=task),
-         sg.Text(" as completed (it will be removed from the list)?")],
+         sg.Text("as completed (it will be removed from the list)?")],
         [sg.Push(), sg.Button('Yes'), sg.Button('No')]
     ]
     temp_window = sg.Window('POPUP', popup_layout, modal=True).read(close=True)
