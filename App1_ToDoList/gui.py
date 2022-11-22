@@ -17,7 +17,7 @@ def popup_confirm(task):
 
 sg.theme("Kayak")
 
-add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add")
+add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add", bind_return_key=True)
 quit_button = sg.Button(button_text="Quit", key="-QUIT-", tooltip="Quit")
 edit_button = sg.Button(image_source="icons/edit-button.png", image_subsample=20, key="-EDIT-", tooltip="Edit")
 delete_button = sg.Button(image_source="icons/checked.png", image_subsample=20, key="-COMPLETE-", tooltip="Complete")
@@ -36,12 +36,16 @@ layout = \
 
 # create window
 window = sg.Window("ToDo App", layout, finalize=True)
-window["-INPUT-"].bind("<Return>", "_Enter")
+#window["-INPUT-"].bind("<Return>", "_Enter")
 
 while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == "-QUIT-":
         break
+
+    elem = window.find_element_with_focus()
+    if elem is sg.Listbox and event == "-INPUT-_Enter":
+        print("lol")
 
     match event:
         case "-ADD-":
@@ -53,7 +57,7 @@ while True:
         case "-ITEMS-":
             todo_selected = values["-ITEMS-"][0]
             window["-INPUT-"].update(value=todo_selected)
-        case "-EDIT":
+        case "-EDIT-":
             try:
                 todo_to_edit = values["-ITEMS-"][0]
                 new_todo = values["-INPUT-"] + "\n"
@@ -63,6 +67,7 @@ while True:
                 window["-ITEMS-"].update(values=todos)
             except IndexError:
                 sg.popup("Please select item to edit.")
+
         case "-COMPLETE-":
             try:
                 todo_to_complete = values["-ITEMS-"][0]
