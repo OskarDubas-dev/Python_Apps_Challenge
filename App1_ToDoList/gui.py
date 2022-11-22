@@ -17,10 +17,10 @@ def popup_confirm(task):
 
 sg.theme("Kayak")
 
-add_button = sg.Button(button_text="Add", key="-ADD-")
-quit_button = sg.Button(key="-QUIT-")
-edit_button = sg.Button(key="-EDIT-")
-delete_button = sg.Button(key="-COMPLETE-")
+add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add")
+quit_button = sg.Button(button_text="Quit", key="-QUIT-", tooltip="Quit")
+edit_button = sg.Button(image_source="icons/edit-button.png", image_subsample=20, key="-EDIT-", tooltip="Edit")
+delete_button = sg.Button(image_source="icons/checked.png", image_subsample=20, key="-COMPLETE-", tooltip="Complete")
 
 tooltip_text = "Enter ToDo"
 
@@ -35,7 +35,8 @@ layout = \
     ]
 
 # create window
-window = sg.Window("ToDo App", layout)
+window = sg.Window("ToDo App", layout, finalize=True)
+window["-INPUT-"].bind("<Return>", "_Enter")
 
 while True:
     event, values = window.read()
