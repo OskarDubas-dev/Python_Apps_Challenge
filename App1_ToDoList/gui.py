@@ -2,7 +2,7 @@ import functions
 import PySimpleGUI as sg
 
 
-def popup_confirm(task):
+def delete_confirm(task):
     """ Create popup window to confirm removing item from the list"""
     task = task.strip("\n")
     popup_layout = [
@@ -72,7 +72,7 @@ while True:
             try:
                 todo_to_complete = values["-ITEMS-"][0]
                 todos = functions.get_todos()
-                confirm = popup_confirm(task=todo_to_complete)[0]
+                confirm = delete_confirm(task=todo_to_complete)[0]
                 print(confirm)
                 if confirm == "Yes":
                     todos.remove(todo_to_complete)
