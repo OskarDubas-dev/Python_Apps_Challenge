@@ -14,12 +14,13 @@ def popup_confirm(task):
     temp_window = sg.Window('POPUP', popup_layout, modal=True).read(close=True)
     return temp_window
 
+
 sg.theme("Kayak")
 
-add_button = sg.Button("Add")
-quit_button = sg.Button("Quit")
-edit_button = sg.Button("Edit")
-delete_button = sg.Button("Complete")
+add_button = sg.Button(button_text="Add", key="-ADD-")
+quit_button = sg.Button(key="-QUIT-")
+edit_button = sg.Button(key="-EDIT-")
+delete_button = sg.Button(key="-COMPLETE-")
 
 tooltip_text = "Enter ToDo"
 
@@ -38,11 +39,11 @@ window = sg.Window("ToDo App", layout)
 
 while True:
     event, values = window.read()
-    if event == sg.WINDOW_CLOSED or event == "Quit":
+    if event == sg.WINDOW_CLOSED or event == "-QUIT-":
         break
 
     match event:
-        case "Add":
+        case "-ADD-":
             todos = functions.get_todos()
             newTODO = values["-INPUT-"] + "\n"
             todos.append(newTODO)
@@ -51,7 +52,7 @@ while True:
         case "-ITEMS-":
             todo_selected = values["-ITEMS-"][0]
             window["-INPUT-"].update(value=todo_selected)
-        case "Edit":
+        case "-EDIT":
             try:
                 todo_to_edit = values["-ITEMS-"][0]
                 new_todo = values["-INPUT-"] + "\n"
@@ -61,8 +62,7 @@ while True:
                 window["-ITEMS-"].update(values=todos)
             except IndexError:
                 sg.popup("Please select item to edit.")
-
-        case "Complete":
+        case "-COMPLETE-":
             try:
                 todo_to_complete = values["-ITEMS-"][0]
                 todos = functions.get_todos()
@@ -75,7 +75,6 @@ while True:
                     window["-INPUT-"].update(value="")
             except IndexError:
                 sg.popup("Please select item to complete.")
-
 
     print(event, values)
     window.refresh()
