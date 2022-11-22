@@ -14,6 +14,7 @@ def popup_confirm(task):
     temp_window = sg.Window('POPUP', popup_layout, modal=True).read(close=True)
     return temp_window
 
+sg.theme("Kayak")
 
 add_button = sg.Button("Add")
 quit_button = sg.Button("Quit")
