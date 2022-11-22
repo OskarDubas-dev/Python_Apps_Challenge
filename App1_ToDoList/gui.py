@@ -36,16 +36,16 @@ layout = \
 
 # create window
 window = sg.Window("ToDo App", layout, finalize=True)
-#window["-INPUT-"].bind("<Return>", "_Enter")
+# window["-INPUT-"].bind("<Return>", "_Enter")
 
 while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == "-QUIT-":
         break
 
-    elem = window.find_element_with_focus()
-    if elem is sg.Listbox and event == "-INPUT-_Enter":
-        print("lol")
+    # elem = window.find_element_with_focus()
+    # if elem is sg.Listbox and event == "-INPUT-_Enter":
+    #     print("lol")
 
     match event:
         case "-ADD-":
