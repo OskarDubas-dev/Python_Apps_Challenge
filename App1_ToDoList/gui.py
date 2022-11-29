@@ -1,5 +1,6 @@
 import functions
 import PySimpleGUI as sg
+import os
 
 
 def delete_confirm(task):
@@ -15,9 +16,14 @@ def delete_confirm(task):
     return temp_window
 
 
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
+
 sg.theme("Kayak")
 
-add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add", bind_return_key=True)
+add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add",
+                       bind_return_key=True)
 quit_button = sg.Button(button_text="Quit", key="-QUIT-", tooltip="Quit")
 edit_button = sg.Button(image_source="icons/edit-button.png", image_subsample=20, key="-EDIT-", tooltip="Edit")
 delete_button = sg.Button(image_source="icons/checked.png", image_subsample=20, key="-COMPLETE-", tooltip="Complete")
@@ -42,10 +48,6 @@ while True:
     event, values = window.read()
     if event == sg.WINDOW_CLOSED or event == "-QUIT-":
         break
-
-    # elem = window.find_element_with_focus()
-    # if elem is sg.Listbox and event == "-INPUT-_Enter":
-    #     print("lol")
 
     match event:
         case "-ADD-":
