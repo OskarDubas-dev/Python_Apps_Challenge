@@ -1,6 +1,6 @@
 # Building 20 apps in python challenge
 
-This is my collection of apps built in python. The challenge here is to build 1 app a day. Lets be positive and see how it goes.
+This is my collection of apps built in python. The challenge here is to build 1 app a week. Lets be positive and see how it goes.
 
 1.  ToDo App
 2.  Portfolio Website
