@@ -8,7 +8,7 @@ a = Analysis(
     ['gui.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('add.png', '.'), ('edit-button.png', '.'), ('checked.png', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

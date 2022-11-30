@@ -1,6 +1,26 @@
+import sys
+
 import functions
 import PySimpleGUI as sg
 import os
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+def get_path(filename):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, filename)
+    else:
+        return "icons/" + filename
 
 
 def delete_confirm(task):
@@ -22,11 +42,13 @@ if not os.path.exists("todos.txt"):
 
 sg.theme("Kayak")
 
-add_button = sg.Button(image_source="icons/add.png", image_subsample=20, key="-ADD-", tooltip="Add",
+add_button = sg.Button(image_source=get_path("add.png"), image_subsample=20, key="-ADD-", tooltip="Add",
                        bind_return_key=True)
 quit_button = sg.Button(button_text="Quit", key="-QUIT-", tooltip="Quit")
-edit_button = sg.Button(image_source="icons/edit-button.png", image_subsample=20, key="-EDIT-", tooltip="Edit")
-delete_button = sg.Button(image_source="icons/checked.png", image_subsample=20, key="-COMPLETE-", tooltip="Complete")
+edit_button = sg.Button(image_source=get_path("edit-button.png"), image_subsample=20, key="-EDIT-",
+                        tooltip="Edit")
+delete_button = sg.Button(image_source=get_path("checked.png"), image_subsample=20, key="-COMPLETE-",
+                          tooltip="Complete")
 
 tooltip_text = "Enter ToDo"
 
