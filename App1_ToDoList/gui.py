@@ -65,7 +65,6 @@ layout = \
 
 # create window
 window = sg.Window("ToDo App", layout, finalize=True)
-# window["-INPUT-"].bind("<Return>", "_Enter")
 
 while True:
     event, values = window.read()
