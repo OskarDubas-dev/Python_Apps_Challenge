@@ -7,8 +7,6 @@ piction_blue = "#46cae4"
 ship_gray = "#3a393f"
 sulu = "#abed5d"
 
-
-
 col1, col2 = st.columns(2)
 
 with col1:
